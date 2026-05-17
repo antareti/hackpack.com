@@ -79,5 +79,42 @@
         </div>
     </footer>
 
+    <audio id="hud-bg-audio" loop>
+        <source src="./a.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const audio = document.getElementById('hud-bg-audio');
+            
+            // Устанавливаем комфортную фоновую громкость (20%)
+            audio.volume = 0.2;
+
+            // Функция запуска звука по первому клику
+            const startAudio = () => {
+                audio.play().catch(err => {
+                    console.log("HUD Audio init delayed...");
+                });
+                document.removeEventListener('click', startAudio);
+                document.removeEventListener('keydown', startAudio);
+            };
+
+            document.addEventListener('click', startAudio);
+            document.addEventListener('keydown', startAudio);
+
+            // Подхватываем позицию трека при переходе между страницами
+            if (sessionStorage.getItem('hudAudioTime')) {
+                audio.currentTime = parseFloat(sessionStorage.getItem('hudAudioTime'));
+            }
+
+            // Каждую секунду сохраняем тайминг в кэш браузера
+            setInterval(() => {
+                if (!audio.paused) {
+                    sessionStorage.setItem('hudAudioTime', audio.currentTime);
+                }
+            }, 1000);
+        });
+    </script>
+
 </body>
 </html>
