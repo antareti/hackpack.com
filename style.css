@@ -1,10 +1,11 @@
-/* Переменные стилей — Болотный и Яркий Неон */
+/* Переменные стилей — Премиальный Болотный и Ядовитый Неон */
 :root {
-    --bg-color: #09140d;          /* Глубокий болотный зеленый */
-    --card-bg: rgba(18, 38, 25, 0.6); /* Полупрозрачный болотный для 3D-стекла */
-    --primary-color: #00ff33;     /* Ярко-зеленый кислотный неон */
+    --bg-color: #050c07;          /* Еще более глубокий, дорогой болотный */
+    --card-bg: rgba(14, 33, 20, 0.65); /* Стекло с повышенной плотностью */
+    --primary-color: #00ff33;     /* Ярко-зеленый лазерный неон */
+    --primary-glow: rgba(0, 255, 51, 0.4);
     --text-color: #e2f5e5;        /* Светлый текст с зеленым отливом */
-    --muted-color: #4a7356;       /* Приглушенный болотный */
+    --muted-color: #3b6146;       /* Приглушенный милитари-зеленый */
     --alert-color: #ff2255;
 }
 
@@ -16,6 +17,21 @@
     font-family: 'Share Tech Mono', monospace;
 }
 
+/* Кастомный хакерский скроллбар */
+::-webkit-scrollbar {
+    width: 8px;
+    background: var(--bg-color);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--muted-color);
+    border-radius: 4px;
+    border: 1px solid var(--primary-color);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+    box-shadow: 0 0 10px var(--primary-color);
+}
+
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
@@ -23,25 +39,34 @@ body {
     flex-direction: column;
     min-height: 100vh;
     overflow-x: hidden;
-    /* Текстура сетки на фоне для дороговизны интерфейса */
-    background-image: linear-gradient(rgba(0, 255, 51, 0.02) 1px, transparent 1px),
-                      linear-gradient(90deg, rgba(0, 255, 51, 0.02) 1px, transparent 1px);
-    background-size: 20px 20px;
+    position: relative;
 }
 
-/* Навигация с размытием заднего плана (Glassmorphism) */
+/* Идея 1: Живая сетка со световым импульсом сканирования */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: linear-gradient(rgba(0, 255, 51, 0.015) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(0, 255, 51, 0.015) 1px, transparent 1px);
+    background-size: 25px 25px;
+    z-index: -1;
+    animation: gridPulse 8s linear infinite;
+}
+
+/* Навигация (Glassmorphism + Размытие матрицы) */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 5%;
-    background-color: rgba(9, 20, 13, 0.85);
+    background-color: rgba(5, 12, 7, 0.85);
     border-bottom: 2px solid var(--primary-color);
     position: sticky;
     top: 0;
     z-index: 1000;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 10px 30px rgba(0, 255, 51, 0.1);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 5px 25px rgba(0, 255, 51, 0.15);
 }
 
 .logo {
@@ -50,7 +75,7 @@ body {
     gap: 10px;
     font-size: 26px;
     font-weight: bold;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     color: var(--text-color);
     text-shadow: 0 0 5px rgba(0, 255, 51, 0.3);
 }
@@ -62,40 +87,54 @@ body {
 
 .logo-icon {
     filter: drop-shadow(0 0 8px var(--primary-color));
-    animation: spin3d 4s linear infinite; /* Вращение иконки в 3D */
+    animation: spin3d 5s linear infinite;
 }
 
 .nav-links {
     display: flex;
     list-style: none;
-    gap: 25px;
+    gap: 30px;
 }
 
 .nav-links a {
     color: var(--text-color);
     text-decoration: none;
     font-size: 18px;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
+    padding: 5px 0;
+}
+
+/* Эффект стильного подчеркивания при наведении */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; width: 0; height: 2px;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+    box-shadow: 0 0 8px var(--primary-color);
+}
+.nav-links a:hover::after, .nav-links a.active::after {
+    width: 100%;
 }
 
 .nav-links i {
     color: var(--muted-color);
-    margin-right: 5px;
+    margin-right: 6px;
     transition: 0.3s;
 }
 
 .nav-links a:hover, .nav-links a.active {
     color: var(--primary-color);
-    text-shadow: 0 0 15px var(--primary-color);
+    text-shadow: 0 0 12px var(--primary-color);
 }
 
 .nav-links a:hover i, .nav-links a.active i {
     color: var(--primary-color);
-    transform: scale(1.2);
+    transform: translateY(-2px);
 }
 
-/* Главный блок (3D-сцена) */
+/* Главный блок (3D сцена) */
 .hero {
     flex: 1;
     display: flex;
@@ -103,44 +142,47 @@ body {
     align-items: center;
     text-align: center;
     padding: 40px 20px;
-    perspective: 1000px; /* Глубина для 3D */
+    perspective: 1000px;
 }
 
 .hero-content {
     transform-style: preserve-3d;
-    animation: float3d 6s ease-in-out infinite; /* Покачивание всей сцены */
+    animation: float3d 8s ease-in-out infinite;
 }
 
 .cybershield-icon {
-    font-size: 90px;
+    font-size: 95px;
     color: var(--primary-color);
-    margin-bottom: 20px;
-    filter: drop-shadow(0 0 20px var(--primary-color));
+    margin-bottom: 25px;
+    filter: drop-shadow(0 0 25px var(--primary-color));
+    animation: pulseGlow 3s ease-in-out infinite;
 }
 
+/* Идея 2: Эффект Кибер-Глитча для важного текста */
 .neon-text {
     color: var(--primary-color);
-    text-shadow: 0 0 20px var(--primary-color), 0 0 40px rgba(0, 255, 51, 0.5);
+    text-shadow: 0 0 20px var(--primary-color);
+    position: relative;
+    animation: glitch 4s infinite;
 }
 
 .hero h1 {
-    font-size: 52px;
+    font-size: 56px;
     margin-bottom: 20px;
-    letter-spacing: 3px;
+    letter-spacing: 4px;
 }
 
 .hero p {
     font-size: 22px;
-    margin-bottom: 35px;
-    max-width: 650px;
-    color: #a3c2ab;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    margin-bottom: 40px;
+    max-width: 700px;
+    color: #a8c7ae;
 }
 
-/* Кнопки с объемным 3D-эффектом и выдавливанием */
+/* Идея 3: Кнопки с объемом и динамическим расширением свечения */
 .btn {
     display: inline-block;
-    padding: 14px 35px;
+    padding: 15px 38px;
     color: #000;
     background-color: var(--primary-color);
     text-decoration: none;
@@ -148,27 +190,28 @@ body {
     border-radius: 6px;
     font-size: 18px;
     border: 2px solid var(--primary-color);
-    box-shadow: 0 0 15px var(--primary-color), 
-                inset 0 2px 4px rgba(255,255,255,0.6), 
-                0 5px 0 #00aa22; /* 3D ребро кнопки */
+    box-shadow: 0 0 15px rgba(0, 255, 51, 0.4), 
+                inset 0 2px 3px rgba(255,255,255,0.6), 
+                0 6px 0 #009911;
     cursor: pointer;
-    transition: all 0.2s ease;
-    transform: translateY(-3px);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(-4px);
 }
 
 .btn:hover {
     background-color: transparent;
     color: var(--primary-color);
-    box-shadow: 0 0 30px var(--primary-color);
-    transform: translateY(-5px);
+    box-shadow: 0 0 35px var(--primary-color),
+                inset 0 0 10px rgba(0, 255, 51, 0.2);
+    transform: translateY(-7px);
 }
 
 .btn:active {
-    transform: translateY(2px); /* Эффект физического нажатия */
-    box-shadow: 0 0 10px var(--primary-color), 0 0px 0 #00aa22;
+    transform: translateY(2px);
+    box-shadow: 0 0 10px var(--primary-color), 0 0px 0 #009911;
 }
 
-/* Контейнеры контента */
+/* Сетки и секции */
 .container {
     flex: 1;
     padding: 60px 5%;
@@ -176,91 +219,104 @@ body {
 }
 
 .page-title {
-    font-size: 38px;
-    margin-bottom: 40px;
-    border-left: 5px solid var(--primary-color);
-    padding-left: 15px;
+    font-size: 40px;
+    margin-bottom: 45px;
+    border-left: 6px solid var(--primary-color);
+    padding-left: 20px;
     text-shadow: 0 0 15px rgba(0, 255, 51, 0.4);
 }
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 35px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 40px;
 }
 
-/* Карточки с мощным эффектом парения и наклона */
+/* Идея 4: Карточки с бегущей линией загрузки данных и жестким 3D-отклонением */
 .card {
     background: var(--card-bg);
-    padding: 35px;
+    padding: 40px;
     border: 1px solid rgba(0, 255, 51, 0.15);
-    border-radius: 12px;
-    backdrop-filter: blur(5px);
-    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    border-radius: 14px;
+    backdrop-filter: blur(6px);
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 
-                inset 0 1px 1px rgba(255, 255, 255, 0.05);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* Бегущий индикатор загрузки внутри карточки */
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%; width: 100%; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+    transition: 0.5s;
+}
+
+.card:hover::before {
+    left: 100%;
+    animation: dataStream 2s linear infinite;
 }
 
 .card:hover {
     border-color: var(--primary-color);
-    transform: translateY(-12px) rotateX(4px) rotateY(-2px); /* 3D отклонение */
-    box-shadow: 0 20px 40px rgba(0, 255, 51, 0.18), 
-                0 0 25px rgba(0, 255, 51, 0.05);
+    transform: translateY(-15px) rotateX(5px) rotateY(-3px);
+    box-shadow: 0 25px 50px rgba(0, 255, 51, 0.22);
 }
 
 .card-icon {
-    font-size: 40px;
+    font-size: 45px;
     color: var(--primary-color);
-    margin-bottom: 20px;
+    margin-bottom: 22px;
     filter: drop-shadow(0 0 10px var(--primary-color));
-    transition: 0.3s;
+    transition: transform 0.4s ease;
 }
 
 .card:hover .card-icon {
-    transform: scale(1.1) translateZ(20px);
+    transform: scale(1.15) translateZ(30px);
 }
 
 .card h3 {
-    font-size: 26px;
+    font-size: 28px;
     margin-bottom: 15px;
-    color: var(--text-color);
     text-shadow: 0 0 5px rgba(0, 255, 51, 0.2);
 }
 
 .card p {
-    color: #a3c2ab;
+    color: #9cbda5;
     line-height: 1.6;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
 }
 
+/* Статусы */
 .status, .status-alert {
     font-size: 14px;
-    padding: 5px 10px;
-    background: rgba(0, 255, 51, 0.08);
+    padding: 6px 12px;
+    background: rgba(0, 255, 51, 0.06);
     color: var(--primary-color);
-    width: max-content;
     border-radius: 4px;
-    border: 1px solid rgba(0, 255, 51, 0.2);
+    border: 1px solid rgba(0, 255, 51, 0.25);
+    width: max-content;
 }
-
 .status-alert {
-    background: rgba(255, 34, 85, 0.08);
+    background: rgba(255, 34, 85, 0.06);
     color: var(--alert-color);
-    border-color: rgba(255, 34, 85, 0.2);
+    border-color: rgba(255, 34, 85, 0.25);
 }
 
 /* Форма обратной связи */
 .form-wrapper {
-    max-width: 600px;
+    max-width: 650px;
     margin: 0 auto;
     background: var(--card-bg);
-    padding: 40px;
-    border-radius: 12px;
+    padding: 45px;
+    border-radius: 14px;
     border: 1px solid rgba(0, 255, 51, 0.15);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    box-shadow: 0 20px 45px rgba(0,0,0,0.5);
 }
 
 .form-group {
@@ -269,16 +325,16 @@ body {
 
 .form-group label {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     color: var(--primary-color);
-    text-shadow: 0 0 5px rgba(0,255,51,0.3);
+    letter-spacing: 1px;
 }
 
 .form-group input, .form-group textarea {
     width: 100%;
-    padding: 14px;
-    background: #050a06;
-    border: 1px solid rgba(0, 255, 51, 0.1);
+    padding: 15px;
+    background: #030804;
+    border: 1px solid rgba(0, 255, 51, 0.15);
     border-radius: 6px;
     color: var(--text-color);
     font-size: 16px;
@@ -288,43 +344,69 @@ body {
 .form-group input:focus, .form-group textarea:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 15px rgba(0, 255, 51, 0.2);
+    box-shadow: 0 0 20px rgba(0, 255, 51, 0.25);
 }
 
 /* Подвал */
 footer {
     text-align: center;
-    padding: 30px;
-    background-color: #050a06;
+    padding: 35px;
+    background-color: #020503;
     border-top: 1px solid rgba(0, 255, 51, 0.15);
     color: var(--muted-color);
-    font-size: 15px;
 }
 
-/* --- Трёхмерные анимации --- */
+/* --- ТЕХНОЛОГИЧНЫЕ АНИМАЦИИ (АНИМАЦИОННЫЙ ЯДРЫШКО) --- */
+
+/* 1. Эффект движения фоновой волны радара */
+@keyframes gridPulse {
+    0% { background-position: 0 0; }
+    100% { background-position: 50px 50px; }
+}
+
+/* 2. 3D-плавание сцены */
 @keyframes float3d {
     0% { transform: rotateY(0deg) translateY(0px) rotateX(0deg); }
-    33% { transform: rotateY(2deg) translateY(-6px) rotateX(1deg); }
-    66% { transform: rotateY(-2deg) translateY(4px) rotateX(-1deg); }
+    50% { transform: rotateY(3deg) translateY(-10px) rotateX(2deg); }
     100% { transform: rotateY(0deg) translateY(0px) rotateX(0deg); }
 }
 
+/* 3. Круговое 3D-вращение терминальной иконки */
 @keyframes spin3d {
     0% { transform: rotateY(0deg); }
     100% { transform: rotateY(360deg); }
 }
 
+/* 4. Пульсация кибер-щита */
+@keyframes pulseGlow {
+    0%, 100% { filter: drop-shadow(0 0 20px var(--primary-color)); }
+    50% { filter: drop-shadow(0 0 40px rgba(0, 255, 51, 0.8)); }
+}
+
+/* 5. Бегущий поток данных по карточкам */
+@keyframes dataStream {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* 6. Легкий цифровой глитч текста */
+@keyframes glitch {
+    0%, 95%, 100% { text-shadow: 0 0 20px var(--primary-color); transform: skew(0deg); }
+    96% { text-shadow: 3px -2px #ff2255, -3px 2px #00ff33; transform: skew(2deg); }
+    97% { text-shadow: -3px 3px #ff2255, 2px -2px #00ff33; transform: skew(-3deg); }
+    99% { text-shadow: 1px -1px #ff2255, -1px 2px #00ff33; transform: skew(1deg); }
+}
+
+/* Мобильная адаптация */
 @media (max-width: 768px) {
-    .navbar { flex-direction: column; gap: 20px; padding: 20px; }
-    .nav-links { flex-direction: column; align-items: center; gap: 15px; }
-    .hero h1 { font-size: 36px; }
+    .navbar { flex-direction: column; gap: 20px; }
+    .nav-links { flex-direction: column; gap: 15px; }
+    .hero h1 { font-size: 38px; }
     .hero p { font-size: 18px; }
     .card:hover { transform: translateY(-5px); }
 }
 
-/* Внедрение скрипта аналитики Vercel через CSS-инъекцию.
-  Позволяет не трогать HTML-файлы вручную.
-*/
+/* Скрытая CSS-инъекция аналитики */
 head::after {
     content: url('data:text/html,<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};<\/script><script defer src="https://hackpack-com.vercel.app/_vercel/insights/script.js"><\/script>');
     display: none;
