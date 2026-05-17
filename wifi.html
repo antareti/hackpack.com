@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HACKPACK | Аудит Беспроводных Сетей</title>
+    <meta name="description" content="Техническое руководство по анализу безопасности беспроводных точек доступа и захвату пакетов.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <script>
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 17L10 11L4 5M12 19H20" stroke="#00ff66" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            HACK<span>PACK</span>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="./index.html">Главная</a></li>
+                <li><a href="./tools.html">Инструменты</a></li>
+                <li><a href="./tutorials.html" class="active">Гайды</a></li>
+                <li><a href="./chat.html">Голосовой Чат</a></li>
+                <li><a href="./contact.html">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container" style="max-width: 900px; margin: 0 auto;">
+        <a href="./tutorials.html" class="btn" style="padding: 8px 16px; font-size: 12px; margin-bottom: 30px;"><i class="fa-solid fa-arrow-left"></i> Назад к гайдам</a>
+        
+        <article class="hero-content" style="max-width: 100%; padding: 40px; text-align: left;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--hud-border); padding-bottom: 15px;">
+                <span class="status">LECTURE // MODULE_02</span>
+                <span style="color: var(--text-dim); font-size: 12px;">WIFI ANALYZER</span>
+            </div>
+            
+            <h1 style="font-size: 32px; margin-bottom: 20px; color: var(--matrix-green);">Анализ защищенности Wi-Fi (WPA/WPA2)</h1>
+            
+            <div style="color: var(--text-bright); font-size: 16px; line-height: 1.8; user-select: text;">
+                <p style="margin-bottom: 20px;">Аудит беспроводных сетей позволяет выявить слабые места в конфигурации роутеров и методах аутентификации клиентов. Большинство уязвимостей связано со слабыми паролями или включенным по умолчанию небезопасным функционалом WPS.</p>
+                
+                <h3 style="color: var(--matrix-green); font-size: 20px; margin: 30px 0 15px 0; text-transform: uppercase;">1. Режим мониторинга (Monitor Mode)</h3>
+                <p style="margin-bottom: 20px;">Для перехвата сетевых пакетов из эфира беспроводной адаптер должен поддерживать перевод чипсета в режим инъекции пакетов и мониторинга. С помощью утилит пакета aircrack-ng производится первичный сбор информации о целях, вещающих вокруг.</p>
+                
+                <h3 style="color: var(--matrix-green); font-size: 20px; margin: 30px 0 15px 0; text-transform: uppercase;">2. Захват 4-этапного рукопожатия (Handshake)</h3>
+                <p style="margin-bottom: 20px;">Для получения зашифрованного хэндшейка выполняется атака деаутентификации, которая на долю секунды отключает легитимного клиента от точки доступа. При его повторном подключении фиксируется обмен ключами, который в дальнейшем может быть проанализирован локально на предмет стойкости пароля.</p>
+            </div>
+        </article>
+    </main>
+
+    <footer style="margin-top: auto;">
+        <p>&copy; 2026 HACKPACK. Все права защищены. Только для образовательных целей.</p>
+    </footer>
+
+</body>
+</html>
