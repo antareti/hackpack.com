@@ -1,31 +1,24 @@
-/* FINE-TUNED SCI-FI HUD TERMINAL FOR HACKPACK */
+/* ==========================================================================
+   УЛЬТИМАТИВНЫЙ SCI-FI HUD ИНТЕРФЕЙС "HACKPACK" (ТОЧНО ПО МАКЕТУ)
+   ========================================================================== */
+
 :root {
     --bg-dark: #020604;
     --matrix-green: #00ff66;
-    --deep-moss: #0a1f11;
-    --hud-border: rgba(0, 255, 102, 0.25);
-    --hud-glow: rgba(0, 255, 102, 0.05);
+    --neon-glow: rgba(0, 255, 102, 0.4);
+    --hud-border: rgba(0, 255, 102, 0.18);
+    --hud-bg-trans: rgba(2, 6, 4, 0.75);
     --text-bright: #e6fff0;
-    --text-dim: #5c8a69;
-    --alert-color: #ff2255;
+    --text-dim: #4a7356;
 }
 
+/* Обнуление и подготовка среды */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Share Tech Mono', monospace, sans-serif;
     user-select: none;
-}
-
-::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
-    background: var(--bg-dark);
-}
-::-webkit-scrollbar-thumb {
-    background: var(--matrix-green);
-    box-shadow: 0 0 10px var(--matrix-green);
 }
 
 body {
@@ -38,270 +31,339 @@ body {
     flex-direction: column;
 }
 
-/* Элегантная фоновая матрица с радаром */
+/* 1. ГЕКСАГОНАЛЬНАЯ СЕТКА И ТАКТИЧЕСКИЙ ФОН С КАРТИНКИ */
 body::before {
     content: "";
     position: fixed;
-    top: 50%; left: 50%;
-    width: 1400px; height: 1400px;
-    transform: translate(-50%, -50%);
-    background: 
-        radial-gradient(circle, transparent 30%, var(--bg-dark) 70%),
-        radial-gradient(circle, rgba(0, 255, 102, 0.02) 1px, transparent 1px),
-        linear-gradient(rgba(0, 255, 102, 0.005) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 255, 102, 0.005) 1px, transparent 1px);
-    background-size: 100% 100%, 40px 40px, 20px 20px, 20px 20px;
+    top: 0; left: 0; width: 100%; height: 100%;
+    /* Генерация гексагональной матрицы через CSS-градиенты */
+    background-image: 
+        linear-gradient(30deg, var(--bg-dark) 25%, transparent 25%), 
+        linear-gradient(30deg, transparent 75%, var(--bg-dark) 75%), 
+        linear-gradient(150deg, var(--bg-dark) 25%, transparent 25%), 
+        linear-gradient(150deg, transparent 75%, var(--bg-dark) 75%), 
+        linear-gradient(30deg, var(--bg-dark) 25%, transparent 25%), 
+        linear-gradient(30deg, transparent 75%, var(--bg-dark) 75%), 
+        linear-gradient(150deg, var(--bg-dark) 25%, transparent 25%), 
+        linear-gradient(150deg, transparent 75%, var(--bg-dark) 75%), 
+        linear-gradient(60deg, rgba(0, 255, 102, 0.015) 25%, transparent 25%), 
+        linear-gradient(60deg, transparent 75%, rgba(0, 255, 102, 0.015) 75%), 
+        linear-gradient(120deg, rgba(0, 255, 102, 0.015) 25%, transparent 25%), 
+        linear-gradient(120deg, transparent 75%, rgba(0, 255, 102, 0.015) 75%);
+    background-size: 60px 104px;
+    background-position: 0 0, 0 0, 0 0, 0 0, 30px 52px, 30px 52px, 30px 52px, 30px 52px, 0 0, 0 0, 0 0, 0 0;
     z-index: -2;
 }
 
+/* Виньетка и мягкое неоновое рассеивание по краям */
 body::after {
     content: "";
     position: fixed;
-    top: 50%; left: 50%;
-    width: 800px; height: 800px;
-    transform: translate(-50%, -50%);
-    border: 1px dashed rgba(0, 255, 102, 0.03);
-    border-radius: 50%;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: 
+        radial-gradient(circle at 50% 50%, transparent 40%, rgba(2, 6, 4, 0.95) 90%),
+        radial-gradient(circle at 50% 40%, rgba(0, 255, 102, 0.04) 0%, transparent 60%);
     z-index: -1;
-    animation: radarRotation 40s linear infinite;
+    pointer-events: none;
 }
 
-.navbar::before {
-    content: "[ SYSTEM: OPERATIONAL // AUTH: GRANTED ]";
-    position: absolute;
-    left: 20px; bottom: -25px;
-    font-size: 10px;
-    color: var(--text-dim);
-    letter-spacing: 2px;
-}
-
-/* Навигационная панель HUD */
+/* 2. ТАКТИЧЕСКАЯ НАВИГАЦИОННАЯ ПАНЕЛЬ */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 40px;
-    background: linear-gradient(180deg, rgba(0,255,102,0.05) 0%, transparent 100%);
+    padding: 25px 50px;
+    background: linear-gradient(180deg, rgba(0, 255, 102, 0.04) 0%, transparent 100%);
     border-bottom: 1px solid var(--hud-border);
     position: relative;
-    box-shadow: 0 0 30px rgba(0,0,0,0.8);
+    z-index: 10;
 }
 
 .logo {
     display: flex;
     align-items: center;
-    gap: 15px;
-    font-size: 28px;
-    letter-spacing: 5px;
-    text-shadow: 0 0 15px var(--matrix-green);
+    gap: 12px;
+    font-size: 24px;
+    letter-spacing: 4px;
+    color: #fff;
+    font-weight: normal;
 }
 
-.logo span { color: var(--matrix-green); }
+.logo span {
+    color: var(--matrix-green);
+    text-shadow: 0 0 10px var(--neon-glow);
+}
+
+/* Дополнительная строка телеметрии под логотипом */
+.logo::after {
+    content: "// SECURE ACCESS HUB";
+    position: absolute;
+    left: 215px;
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 2px;
+}
 
 .logo-icon {
-    width: 32px; height: 32px;
-    filter: drop-shadow(0 0 8px var(--matrix-green));
-    animation: glitchLogo 6s infinite;
+    width: 26px;
+    height: 26px;
+    filter: drop-shadow(0 0 5px var(--matrix-green));
 }
 
+/* Ссылки меню */
 .nav-links {
     display: flex;
     list-style: none;
-    gap: 15px;
+    gap: 8px;
 }
 
 .nav-links a {
-    color: var(--text-dim);
+    color: var(--text-bright);
+    opacity: 0.6;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 13px;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    padding: 8px 16px;
+    letter-spacing: 1.5px;
+    padding: 8px 18px;
     border: 1px solid transparent;
-    position: relative;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.nav-links a::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; width: 4px; height: 4px;
-    border-top: 1px solid var(--matrix-green);
-    border-left: 1px solid var(--matrix-green);
-    opacity: 0;
-}
-
+/* Активный пункт меню с зеленой полосой снизу как на макете */
 .nav-links a:hover, .nav-links a.active {
+    opacity: 1;
     color: var(--matrix-green);
-    background: rgba(0, 255, 102, 0.04);
-    border-color: rgba(0, 255, 102, 0.15);
-    text-shadow: 0 0 8px var(--matrix-green);
+    background: rgba(0, 255, 102, 0.03);
+    border-bottom: 2px solid var(--matrix-green);
+    text-shadow: 0 0 8px var(--neon-glow);
 }
 
-.nav-links a:hover::before, .nav-links a.active::before { opacity: 1; }
-.nav-links i { display: none; }
-
-/* Главный интерфейс */
+/* 3. ЦЕНТРАЛЬНЫЙ ИНТЕРФЕЙС HUD */
 .hero {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 60px 20px;
+    padding: 40px 20px;
 }
 
 .hero-content {
-    background: var(--hud-glow);
-    border: 1px solid var(--hud-border);
-    padding: 60px 80px;
+    text-align: center;
+    max-width: 950px;
     position: relative;
-    max-width: 900px;
-    box-shadow: inset 0 0 40px rgba(0, 255, 102, 0.02);
-    animation: bootTerminal 1s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 5;
 }
 
-.hero-content::before, .hero-content::after {
-    content: ""; position: absolute; width: 15px; height: 15px;
-}
-.hero-content::before {
-    top: -1px; left: -1px;
-    border-top: 3px solid var(--matrix-green); border-left: 3px solid var(--matrix-green);
-}
-.hero-content::after {
-    bottom: -1px; right: -1px;
-    border-bottom: 3px solid var(--matrix-green); border-right: 3px solid var(--matrix-green);
+/* КИБЕРНЕТИЧЕСКОЕ ЯДРО С ОБЪЕМНЫМ ЩИТОМ И КОНТУРОМ ГЕКСАГОНА */
+.cybershield-container {
+    position: relative;
+    width: 240px;
+    height: 240px;
+    margin: 0 auto 35px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+/* Вращающийся внешний контур ядра */
+.cybershield-container::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 1px dashed rgba(0, 255, 102, 0.2);
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    animation: rotateCore 20s linear infinite;
+}
+
+.cybershield-container::after {
+    content: "";
+    position: absolute;
+    width: 85%;
+    height: 85%;
+    border: 1px double rgba(0, 255, 102, 0.1);
+    border-radius: 50%;
+    animation: rotateCoreRev 15s linear infinite;
+}
+
+/* Сам объемный щит по центру */
 .cybershield-icon {
-    font-size: 70px;
+    font-size: 65px;
     color: var(--matrix-green);
-    margin-bottom: 30px;
-    filter: drop-shadow(0 0 20px rgba(0, 255, 102, 0.6));
-    animation: corePulse 3s ease-in-out infinite;
+    z-index: 2;
+    filter: drop-shadow(0 0 25px rgba(0, 255, 102, 0.6));
+    animation: pulseCore 3s ease-in-out infinite;
 }
 
+/* Метка статуса справа от ядра */
+.core-telemetry {
+    position: absolute;
+    right: -80px;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 3px;
+    white-space: nowrap;
+}
+
+/* Заголовки */
 .hero h1 {
-    font-size: 46px;
-    letter-spacing: 6px;
+    font-size: 44px;
+    letter-spacing: 5px;
     text-transform: uppercase;
     font-weight: normal;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
+    color: #fff;
 }
 
 .neon-text {
-    color: #fff;
-    text-shadow: 0 0 20px var(--matrix-green), 0 0 40px var(--matrix-green);
+    color: var(--matrix-green);
+    text-shadow: 0 0 15px var(--neon-glow);
 }
 
 .hero p {
-    font-size: 18px;
-    color: var(--text-dim);
+    font-size: 16px;
+    color: var(--text-bright);
+    opacity: 0.7;
     line-height: 1.6;
     letter-spacing: 1px;
-    max-width: 650px;
-    margin-bottom: 50px;
-    border-left: 2px solid rgba(0, 255, 102, 0.15);
-    padding-left: 20px;
+    max-width: 600px;
+    margin: 0 auto 45px auto;
 }
 
+/* 4. РЕВОЛЮЦИОННЫЕ КНОПКИ-ГЕКСАГОНЫ С ТОЧНОЙ СТРУКТУРОЙ */
 .btn-container {
     display: flex;
-    gap: 30px;
+    gap: 20px;
     justify-content: center;
-    flex-wrap: wrap;
 }
 
 .btn {
-    display: inline-block;
-    padding: 16px 40px;
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 210px;
+    height: 56px;
     color: var(--matrix-green) !important;
     background: transparent !important;
     text-transform: uppercase;
     text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 2px;
     font-weight: bold;
-    font-size: 15px;
-    letter-spacing: 3px;
-    border: 1px solid var(--matrix-green);
-    position: relative;
     cursor: pointer;
-    box-shadow: 0 0 15px rgba(0, 255, 102, 0.1);
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+    z-index: 1;
+    transition: all 0.3s ease;
+    /* Обрезка углов для создания формы хакерского гексагона */
+    clip-path: polygon(12px 0%, calc(100% - 12px) 0%, 100% 50%, calc(100% - 12px) 100%, 12px 100%, 0% 50%);
 }
 
+/* Границы гексагональной кнопки через маску */
 .btn::before {
-    content: ""; position: absolute;
+    content: "";
+    position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
     background: var(--matrix-green);
-    z-index: -1; transform: scaleY(0);
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    clip-path: polygon(12px 0%, calc(100% - 12px) 0%, 100% 50%, calc(100% - 12px) 100%, 12px 100%, 0% 50%);
+    transition: all 0.3s ease;
+    z-index: -2;
 }
 
-.btn:hover { color: #000 !important; box-shadow: 0 0 30px var(--matrix-green); transform: translateY(-2px); }
-.btn:hover::before { transform: scaleY(1); }
-.btn i { margin-right: 10px; }
-
-/* Сетка контента */
-.container { flex: 1; padding: 60px 40px; }
-.page-title {
-    font-size: 32px; letter-spacing: 4px; text-transform: uppercase; font-weight: normal;
-    margin-bottom: 50px; color: var(--matrix-green); text-shadow: 0 0 10px rgba(0,255,102,0.3);
+/* Внутреннее тело кнопки (создает эффект тонкой рамки) */
+.btn::after {
+    content: "";
+    position: absolute;
+    top: 1px; left: 1px;
+    width: calc(100% - 2px); height: calc(100% - 2px);
+    background: var(--bg-dark);
+    clip-path: polygon(11px 0%, calc(100% - 11px) 0%, 100% 50%, calc(100% - 11px) 100%, 11px 100%, 0% 50%);
+    z-index: -1;
 }
 
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
+/* Лазерная заливка при наведении */
+.btn-fill {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(90deg, rgba(0,255,102,0.2) 0%, rgba(0,255,102,0.05) 100%);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: -1;
 }
 
-.card {
-    background: rgba(4, 12, 6, 0.6);
-    border: 1px solid var(--hud-border);
-    padding: 35px; position: relative;
-    display: flex; flex-direction: column; justify-content: space-between;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+/* Подписи под главным текстом кнопки (// TOOLS, // COMMS) */
+.btn-sub {
+    font-size: 9px;
+    opacity: 0.5;
+    letter-spacing: 1px;
+    margin-top: 2px;
+    color: var(--text-bright);
 }
 
-.card::before {
-    content: ""; position: absolute; top: -1px; right: -1px; width: 10px; height: 10px;
-    border-top: 2px solid var(--matrix-green); border-right: 2px solid var(--matrix-green);
+/* Хакерские стили при наведении на гексагон */
+.btn:hover {
+    color: #fff !important;
+    filter: drop-shadow(0 0 12px var(--matrix-green));
 }
 
-.card:hover {
-    border-color: var(--matrix-green); background: rgba(0, 255, 102, 0.03);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.6), inset 0 0 20px rgba(0, 255, 102, 0.05);
-    transform: scale(1.02);
+.btn:hover .btn-fill {
+    transform: scaleX(1);
 }
 
-.card-icon { font-size: 36px; color: var(--matrix-green); margin-bottom: 20px; }
-.card h3 { font-size: 24px; letter-spacing: 2px; font-weight: normal; margin-bottom: 15px; text-transform: uppercase; }
-.card p { color: var(--text-dim); font-size: 15px; line-height: 1.6; margin-bottom: 30px; }
-
-.status, .status-alert {
-    font-size: 12px; padding: 4px 10px; background: var(--deep-moss);
-    color: var(--matrix-green); border: 1px solid var(--hud-border); letter-spacing: 1px;
+.btn:hover::before {
+    background: #fff; /* Белое свечение граней при наведении */
 }
-.status-alert { background: rgba(255,34,85,0.05); color: var(--alert-color); border-color: rgba(255,34,85,0.3); }
 
-/* Формы */
-.form-wrapper { max-width: 650px; margin: 0 auto; background: rgba(4, 12, 6, 0.6); border: 1px solid var(--hud-border); padding: 50px; }
-.form-group { margin-bottom: 20px; }
-.form-group label { display: block; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; color: var(--matrix-green); margin-bottom: 10px; }
-.form-group input, .form-group textarea { width: 100%; padding: 14px; background: var(--bg-dark); border: 1px solid var(--hud-border); color: var(--text-bright); font-size: 16px; }
-.form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--matrix-green); box-shadow: 0 0 15px rgba(0, 255, 102, 0.2); }
+/* 5. НИЖНЯЯ СТРОКА ТЕЛЕМЕТРИИ С КАРТИНКИ */
+.hud-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    border-top: 1px solid var(--hud-border);
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    background: linear-gradient(0deg, rgba(0, 255, 102, 0.02) 0%, transparent 100%);
+    position: relative;
+    z-index: 10;
+}
 
-footer { text-align: center; padding: 40px; border-top: 1px solid var(--hud-border); color: var(--text-dim); font-size: 13px; letter-spacing: 2px; }
+.hud-telemetry-left {
+    color: var(--text-dim);
+}
 
-/* Анимации */
-@keyframes radarRotation { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
-@keyframes corePulse { 0%, 100% { transform: scale(1); opacity: 0.9; } 50% { transform: scale(1.04); opacity: 1; filter: drop-shadow(0 0 30px var(--matrix-green)); } }
-@keyframes bootTerminal { from { opacity: 0; transform: scale(0.98) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-@keyframes glitchLogo { 0%, 90%, 100% { transform: rotateY(0deg); filter: hue-rotate(0deg); } 93% { transform: rotateY(30deg) skewX(10deg); filter: hue-rotate(90deg); } 95% { transform: rotateY(-30deg) skewX(-10deg); filter: hue-rotate(180deg); } }
+.hud-telemetry-right {
+    text-transform: uppercase;
+}
 
+/* АНИМАЦИОННЫЕ ТАКТИЧЕСКИЕ СЕКЦИИ */
+@keyframes rotateCore {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+@keyframes rotateCoreRev {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
+}
+@keyframes pulseCore {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(0, 255, 102, 0.5)); }
+    50% { transform: scale(1.05); filter: drop-shadow(0 0 35px rgba(0, 255, 102, 0.8)); }
+}
+
+/* Адаптив под мобильные устройства */
 @media (max-width: 768px) {
-    .navbar { flex-direction: column; gap: 20px; padding: 20px; }
-    .nav-links { flex-direction: column; gap: 10px; width: 100%; text-align: center; }
+    .navbar { flex-direction: column; gap: 15px; padding: 20px; }
+    .logo::after { display: none; }
     .hero h1 { font-size: 32px; }
-    .hero-content { padding: 40px 20px; }
-    .btn-container { flex-direction: column; gap: 15px; width: 100%; }
-    .btn { width: 100%; text-align: center; }
+    .btn-container { flex-direction: column; gap: 15px; }
+    .hud-footer { flex-direction: column; gap: 10px; text-align: center; padding: 20px; }
+    .core-telemetry { display: none; }
 }
