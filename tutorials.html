@@ -3,166 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HACKPACK | Гайды</title>
+    <title>HACKPACK | Кибер-Гайды и Мануалы</title>
+    <meta name="description" content="Пошаговые руководства по анализу уязвимостей, настройке защищенных систем и сетевому администрированию.">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+
     <script>
       window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
     </script>
     <script defer src="/_vercel/insights/script.js"></script>
-    <style>
-        /* Дополнительные стили для раскрывающихся гайдов */
-        summary {
-            font-size: 22px;
-            font-weight: bold;
-            cursor: pointer;
-            list-style: none;
-            position: relative;
-            padding-right: 30px;
-            color: var(--text-color);
-        }
-        summary::-webkit-details-marker {
-            display: none;
-        }
-        summary::after {
-            content: '\f107';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--primary-color);
-            transition: 0.3s;
-        }
-        details[open] summary::after {
-            transform: translateY(-50%) rotate(180deg);
-        }
-        .guide-content {
-            margin-top: 20px;
-            border-top: 1px solid #1e293b;
-            padding-top: 15px;
-            color: #94a3b8;
-            line-height: 1.6;
-        }
-        .guide-content h4 {
-            color: var(--primary-color);
-            margin: 15px 0 5px 0;
-            font-size: 18px;
-        }
-        .code-block {
-            background: #070b14;
-            padding: 12px;
-            border-left: 3px solid var(--primary-color);
-            font-family: monospace;
-            color: #00ff66;
-            margin: 10px 0;
-            overflow-x: auto;
-            border-radius: 4px;
-        }
-        ul.guide-list {
-            margin-left: 20px;
-            margin-bottom: 10px;
-        }
-    </style>
 </head>
 <body>
 
     <header class="navbar">
         <div class="logo">
-            <svg class="logo-icon" width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M4 17L10 11L4 5M12 19H20" stroke="#00ff66" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
             HACK<span>PACK</span>
         </div>
         <nav>
             <ul class="nav-links">
-                <li><a href="./index.html"><i class="fa-solid fa-house"></i> Главная</a></li>
-                <li><a href="./tools.html"><i class="fa-solid fa-terminal"></i> Инструменты</a></li>
-                <li><a href="./tutorials.html" class="active"><i class="fa-solid fa-book-bookmark"></i> Гайды</a></li>
-                <li><a href="./contact.html"><i class="fa-solid fa-envelope"></i> Контакты</a></li>
+                <li><a href="./index.html">Главная</a></li>
+                <li><a href="./tools.html">Инструменты</a></li>
+                <li><a href="./tutorials.html" class="active">Гайды</a></li>
+                <li><a href="./chat.html">Голосовой Чат</a></li>
+                <li><a href="./contact.html">Контакты</a></li>
             </ul>
         </nav>
     </header>
 
     <main class="container">
-        <h2 class="page-title"><i class="fa-solid fa-graduation-cap"></i> База знаний</h2>
+        <h1 class="page-title">База Данных / Мануалы</h1>
         
-        <div class="grid" style="grid-template-columns: 1fr; gap: 25px;">
-            
-            <div class="card">
-                <details>
-                    <summary><i class="fa-solid fa-terminal" style="color: var(--primary-color); margin-right: 10px;"></i> 01. Основы Linux терминала и навигации</summary>
-                    <div class="guide-content">
-                        <p>Командная строка — это главный инструмент любого исследователя безопасности. В отличие от графического интерфейса, терминал позволяет автоматизировать рутину и управлять системой напрямую.</p>
-                        
-                        <h4>Основные команды навигации:</h4>
-                        <div class="code-block">pwd</div>
-                        <p>Показывает текущую директорию, в которой вы находитесь.</p>
-                        
-                        <div class="code-block">ls -la</div>
-                        <p>Выводит список всех файлов и папок в директории, включая скрытые (начинающиеся с точки), а также показывает права доступа.</p>
+        <div class="grid">
+            <article class="card">
+                <div>
+                    <div class="card-icon"><i class="fa-solid fa-user-secret"></i></div>
+                    <h3>Основы анонимности</h3>
+                    <p>Конфигурация изолированных операционных систем, маршрутизация трафика через цепочки прокси и шифрование дисков.</p>
+                </div>
+                <a href="#" class="btn" style="padding: 10px 20px; font-size: 13px; margin-top: 15px; width: max-content;">Читать</a>
+            </article>
 
-                        <div class="code-block">cd /path/to/folder</div>
-                        <p>Переход в указанную папку. Использование команды <span style="color:var(--primary-color)">cd ..</span> поднимет вас на один уровень вверх.</p>
-
-                        <h4>Управление правами доступа (Важно для запуска скриптов):</h4>
-                        <p>Если загруженный из сети скрипт не запускается, ему нужно выдать права на исполнение:</p>
-                        <div class="code-block">chmod +x script.py</div>
-                    </div>
-                </details>
-            </div>
-
-            <div class="card">
-                <details>
-                    <summary><i class="fa-solid fa-network-wired" style="color: var(--primary-color); margin-right: 10px;"></i> 02. Основы анализа сети и сканирования</summary>
-                    <div class="guide-content">
-                        <p>Правильный анализ сетевой инфраструктуры позволяет обнаружить активные хосты и выяснить, какие порты на них открыты, для дальнейшего анализа безопасности.</p>
-                        
-                        <h4>Определение сетевых интерфейсов:</h4>
-                        <p>Прежде чем сканировать сеть, нужно узнать собственный IP-адрес и имя сетевой карты:</p>
-                        <div class="code-block">ip a</div>
-
-                        <h4>Сканирование с помощью утилит (концепт):</h4>
-                        <p>Обычно в тестах на проникновение используется сканирование портов для обнаружения версий запущенных служб. Пример классического синтаксиса для сканирования сети:</p>
-                        <div class="code-block">nmap -sV -O 192.168.1.1</div>
-                        <p>Где ключи означают:</p>
-                        <ul class="guide-list">
-                            <li><strong>-sV</strong> — запуск определения версий запущенных служб.</li>
-                            <li><strong>-O</strong> — попытка определить операционную систему целевого узла.</li>
-                        </ul>
-                    </div>
-                </details>
-            </div>
-
-            <div class="card">
-                <details>
-                    <summary><i class="fa-solid fa-user-shield" style="color: var(--primary-color); margin-right: 10px;"></i> 03. Аудит стойкости аутентификации</summary>
-                    <div class="guide-content">
-                        <p>Данный материал демонстрирует важность использования сложных паролей и регулярной смены дефолтных учетных данных в сетевых устройствах.</p>
-                        
-                        <h4>Проверка криптографических хэшей:</h4>
-                        <p>В процессе тестирования систем часто проверяется скорость перебора различных типов хэшей (MD5, SHA-256, bcrypt) на локальных мощностях (CPU/GPU) для оценки времени, которое может потребоваться злоумышленнику в случае утечки базы данных.</p>
-                        
-                        <h4>Защита систем:</h4>
-                        <p>Для предотвращения подбора паролей на живых сервисах применяются жесткие политики:</p>
-                        <ul class="guide-list">
-                            <li>Блокировка IP-адреса после 3-5 неудачных попыток входа (например, через Fail2ban).</li>
-                            <li>Обязательное внедрение двухфакторной аутентификации (2FA).</li>
-                            <li>Длина пароля администратора не менее 12-16 символов, включая разные регистры, цифры и спецсимволы.</li>
-                        </ul>
-                    </div>
-                </details>
-            </div>
-            
+            <article class="card">
+                <div>
+                    <div class="card-icon"><i class="fa-solid fa-wifi"></i></div>
+                    <h3>Аудит Wi-Fi сетей</h3>
+                    <p>Разбор векторов атак на беспроводные точки доступа, захват хэндшейков (WPA/WPA2) и методы их безопасного анализа.</p>
+                </div>
+                <a href="#" class="btn" style="padding: 10px 20px; font-size: 13px; margin-top: 15px; width: max-content;">Читать</a>
+            </article>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2026 HACKPACK. Все права защищены. Только для образовательных целей.</p>
+        <p>&copy; 2026 HACKPACK. Все права reserved. Только для образовательных целей.</p>
     </footer>
 
 </body>
