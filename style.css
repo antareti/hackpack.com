@@ -1,5 +1,5 @@
 /* ==========================================================================
-   УЛЬТИМАТИВНЫЙ SCI-FI HUD ИНТЕРФЕЙС "HACKPACK" (ПОЛНАЯ СБОРКА)
+   УЛЬТИМАТИВНЫЙ SCI-FI HUD ИНТЕРФЕЙС "HACKPACK" (ПОЛНАЯ БЕЗУПРЕЧНАЯ СБОРКА)
    ========================================================================== */
 
 /* Импорт хакерского шрифта OpenLukyanov напрямую из веб-репозитория */
@@ -61,23 +61,21 @@ body::before {
     z-index: -3;
 }
 
-/* 2. ОРИГИНАЛЬНОЕ КИБЕР-ЛИЦО С МАКЕТА (ВШИТО НАМЕРТВО В КОД) */
+/* 2. ТАКТИЧЕСКИЙ HUD-ИНТЕРФЕЙС И ЦИФРОВЫЕ КРУГИ СКАНИРОВАНИЯ НА КАСКАДЕ */
 body::after {
     content: "";
     position: fixed;
     top: 50%;
-    left: 65%; /* Точное смещение вправо по макету */
+    left: 65%; /* Точное позиционирование в правой части, как на макете */
     transform: translate(-50%, -50%);
-    width: 85vh;
-    height: 85vh;
-    /* Высокотехнологичная маска лица женщины, закодированная в SVG */
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" opacity="0.16"><defs><radialGradient id="g" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="%2300ff66" stop-opacity="1"/><stop offset="100%" stop-color="%23020604" stop-opacity="0"/></radialGradient></defs><g stroke="%2300ff66" stroke-width="1" fill="none" opacity="0.75"><path d="M400,120 C270,120 200,200 180,340 C170,420 190,480 200,530 C220,620 270,710 340,750 C370,765 390,770 400,770 C410,770 430,765 460,750 C530,710 580,620 600,530 C610,480 630,420 620,340 C600,200 530,120 400,120 Z" stroke-width="1.5"/><path d="M260,380 Q320,350 360,390 M540,380 Q480,350 440,390" stroke-width="2.5"/><circle cx="310" cy="400" r="14"/><circle cx="490" cy="400" r="14"/><path d="M400,390 L390,500 L410,500 Z"/><path d="M330,570 Q400,610 470,570" stroke-width="3"/><path d="M350,575 Q400,595 450,575"/><path d="M180,340 L620,340 M200,530 L600,530 M260,650 L540,650 M400,120 L400,770" stroke-dasharray="3 6" opacity="0.4"/><path d="M220,240 C300,160 500,160 580,240" stroke-dasharray="2 4" opacity="0.5"/></g><circle cx="400" cy="400" r="380" stroke="%2300ff66" stroke-width="0.5" stroke-dasharray="5 15" fill="none" opacity="0.2"/><path d="M100,400 L700,400 M400,100 L400,700" stroke="%2300ff66" stroke-width="0.5" stroke-dasharray="2 8" opacity="0.3"/></svg>');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    /* Плавное растворение в болотном фоне */
-    opacity: 0.22;
-    mix-blend-mode: screen;
+    width: 75vh;
+    height: 75vh;
+    /* Создание концентрических кибер-колец биометрии с помощью чистого CSS */
+    background: 
+        radial-gradient(circle, transparent 35%, rgba(0, 255, 102, 0.15) 36%, rgba(0, 255, 102, 0.15) 37%, transparent 38%),
+        radial-gradient(circle, transparent 50%, rgba(0, 255, 102, 0.08) 51%, rgba(0, 255, 102, 0.08) 52%, transparent 53%),
+        radial-gradient(circle, transparent 65%, rgba(0, 255, 102, 0.04) 66%, rgba(0, 255, 102, 0.04) 67%, transparent 68%),
+        radial-gradient(circle, rgba(0, 255, 102, 0.03) 0%, transparent 70%);
     pointer-events: none;
     z-index: -2;
 }
