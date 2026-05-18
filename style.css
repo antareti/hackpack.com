@@ -1,18 +1,19 @@
 /* ==========================================================================
-   УЛЬТИМАТИВНЫЙ SCI-FI HUD ИНТЕРФЕЙС "HACKPACK" (ТОЧНО ПО МАКЕТУ)
+   УЛЬТИМАТИВНЫЙ SCI-FI HUD ИНТЕРФЕЙС "HACKPACK" (БОЛОТНЫЙ КИБЕР-ГРАФИТ)
    ========================================================================== */
 
 /* Импорт хакерского шрифта OpenLukyanov напрямую из веб-репозитория */
 @import url('https://fonts.cdnfonts.com/css/openlukyanov');
 
 :root {
-    --bg-dark: #020604;
-    --matrix-green: #00ff66;
-    --neon-glow: rgba(0, 255, 102, 0.4);
-    --hud-border: rgba(0, 255, 102, 0.18);
-    --hud-bg-trans: rgba(2, 6, 4, 0.75);
+    --bg-dark: #050a06;          /* Глубокий болотно-черный тон */
+    --swamp-green: #0e1f13;      /* Плотный болотный цвет для подложки */
+    --matrix-green: #00ff66;     /* Акцентный неоновый зеленый */
+    --neon-glow: rgba(0, 255, 102, 0.35);
+    --hud-border: rgba(0, 255, 102, 0.15);
+    --hud-bg-trans: rgba(5, 10, 6, 0.82);
     --text-bright: #e6fff0;
-    --text-dim: #4a7356;
+    --text-dim: #507e5d;         /* Болотно-зеленый приглушенный текст */
 }
 
 /* Обнуление и подготовка среды */
@@ -34,13 +35,14 @@ body {
     flex-direction: column;
 }
 
-/* 1. ГЕКСАГОНАЛЬНАЯ СЕТКА И ТАКТИЧЕСКИЙ ФОН С КАРТИНКИ */
+/* 1. ГЕКСАГОНАЛЬНАЯ СЕТКА И БОЛОТНАЯ ПОДЛОЖКА */
 body::before {
     content: "";
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    /* Generation of hexagonal matrix via CSS gradients */
-    background-image: 
+    /* Генерация гексагональной матрицы и болотного градиента */
+    background: 
+        radial-gradient(circle at 50% 50%, var(--swamp-green) 0%, var(--bg-dark) 85%),
         linear-gradient(30deg, var(--bg-dark) 25%, transparent 25%), 
         linear-gradient(30deg, transparent 75%, var(--bg-dark) 75%), 
         linear-gradient(150deg, var(--bg-dark) 25%, transparent 25%), 
@@ -49,23 +51,45 @@ body::before {
         linear-gradient(30deg, transparent 75%, var(--bg-dark) 75%), 
         linear-gradient(150deg, var(--bg-dark) 25%, transparent 25%), 
         linear-gradient(150deg, transparent 75%, var(--bg-dark) 75%), 
-        linear-gradient(60deg, rgba(0, 255, 102, 0.015) 25%, transparent 25%), 
-        linear-gradient(60deg, transparent 75%, rgba(0, 255, 102, 0.015) 75%), 
-        linear-gradient(120deg, rgba(0, 255, 102, 0.015) 25%, transparent 25%), 
-        linear-gradient(120deg, transparent 75%, rgba(0, 255, 102, 0.015) 75%);
-    background-size: 60px 104px;
-    background-position: 0 0, 0 0, 0 0, 0 0, 30px 52px, 30px 52px, 30px 52px, 30px 52px, 0 0, 0 0, 0 0, 0 0;
-    z-index: -2;
+        linear-gradient(60deg, rgba(0, 255, 102, 0.012) 25%, transparent 25%), 
+        linear-gradient(60deg, transparent 75%, rgba(0, 255, 102, 0.012) 75%), 
+        linear-gradient(120deg, rgba(0, 255, 102, 0.012) 25%, transparent 25%), 
+        linear-gradient(120deg, transparent 75%, rgba(0, 255, 102, 0.012) 75%);
+    background-size: 100% 100%, 60px 104px, 60px 104px, 60px 104px, 60px 104px, 60px 104px, 60px 104px, 60px 104px, 60px 104px, 60px 104px, 60px 104px, 60px 104px, 60px 104px;
+    background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 30px 52px, 30px 52px, 30px 52px, 30px 52px, 0 0, 0 0, 0 0, 0 0;
+    background-blend-mode: multiply;
+    z-index: -3;
 }
 
-/* Виньетка и мягкое неоновое рассеивание по краям */
+/* 2. ВСТРОЕННОЕ ТАКТИЧЕСКОЕ ЛИЦО (КИБЕР-ГОЛОГРАММА) */
 body::after {
     content: "";
     position: fixed;
+    top: 55%;
+    left: 62%;
+    transform: translate(-50%, -50%);
+    width: 65vh;
+    height: 65vh;
+    /* Высокотехнологичная маска лица женщины, интегрированная прямо в CSS */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500' opacity='0.12'%3E%3Cpath d='M250,60 C180,60 140,110 130,190 C125,230 135,260 140,290 C150,340 180,410 220,435 C235,445 245,450 250,450 C255,450 265,445 280,435 C320,410 350,340 360,290 C365,260 375,230 370,190 C360,110 320,60 250,60 Z' fill='none' stroke='%2300ff66' stroke-width='1.5'/%3E%3Cpath d='M175,220 Q210,205 230,225 M325,220 Q290,205 270,225' fill='none' stroke='%2300ff66' stroke-width='2'/%3E%3Ccircle cx='205' cy='230' r='8' fill='none' stroke='%2300ff66' stroke-width='1.5'/%3E%3Ccircle cx='295' cy='230' r='8' fill='none' stroke='%2300ff66' stroke-width='1.5'/%3E%3Cpath d='M250,225 L245,290 L255,290 Z' fill='none' stroke='%2300ff66' stroke-width='1.5'/%3E%3Cpath d='M215,330 Q250,350 285,330' fill='none' stroke='%2300ff66' stroke-width='2'/%3E%3Cpath d='M225,333 Q250,343 275,333' fill='none' stroke='%2300ff66' stroke-width='1'/%3E%3Cpath d='M140,190 L360,190 M150,290 L350,290 M180,370 L320,370 M250,60 L250,450' fill='none' stroke='%2300ff66' stroke-width='0.5' stroke-dasharray='4 8'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* Размытие краев и наложение эффекта горизонтальных линий сканирования */
+    background-blend-mode: overlay;
+    mask-image: radial-gradient(circle, black 50%, transparent 95%);
+    -webkit-mask-image: radial-gradient(circle, black 50%, transparent 95%);
+    z-index: -2;
+    pointer-events: none;
+}
+
+/* Дополнительный слой сетки поверх лица для эффекта монитора */
+.hero::before {
+    content: "";
+    position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: 
-        radial-gradient(circle at 50% 50%, transparent 40%, rgba(2, 6, 4, 0.95) 90%),
-        radial-gradient(circle at 50% 40%, rgba(0, 255, 102, 0.04) 0%, transparent 60%);
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 255, 102, 0.04) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+    background-size: 100% 4px, 6px 100%;
     z-index: -1;
     pointer-events: none;
 }
@@ -76,7 +100,7 @@ body::after {
     justify-content: space-between;
     align-items: center;
     padding: 25px 50px;
-    background: linear-gradient(180deg, rgba(0, 255, 102, 0.04) 0%, transparent 100%);
+    background: linear-gradient(180deg, rgba(0, 255, 102, 0.03) 0%, transparent 100%);
     border-bottom: 1px solid var(--hud-border);
     position: relative;
     z-index: 10;
@@ -86,7 +110,7 @@ body::after {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-family: 'OpenLukyanov', sans-serif; /* Включение OpenLukyanov */
+    font-family: 'OpenLukyanov', sans-serif;
     font-size: 26px;
     letter-spacing: 1px;
     color: #fff;
@@ -98,7 +122,6 @@ body::after {
     text-shadow: 0 0 10px var(--neon-glow);
 }
 
-/* Дополнительная строка телеметрии под логотипом */
 .logo::after {
     content: "// SECURE ACCESS HUB";
     position: absolute;
@@ -137,11 +160,10 @@ body::after {
     gap: 8px;
 }
 
-/* Активный пункт меню с зеленой полосой снизу как на макете */
 .nav-links a:hover, .nav-links a.active {
     opacity: 1;
     color: var(--matrix-green);
-    background: rgba(0, 255, 102, 0.03);
+    background: rgba(0, 255, 102, 0.02);
     border-bottom: 2px solid var(--matrix-green);
     text-shadow: 0 0 8px var(--neon-glow);
 }
@@ -153,6 +175,7 @@ body::after {
     justify-content: center;
     align-items: center;
     padding: 40px 20px;
+    position: relative;
 }
 
 .hero-content {
@@ -173,7 +196,6 @@ body::after {
     align-items: center;
 }
 
-/* Вращающийся внешний контур ядра */
 .cybershield-container::before {
     content: "";
     position: absolute;
@@ -194,7 +216,6 @@ body::after {
     animation: rotateCoreRev 15s linear infinite;
 }
 
-/* Сам объемный щит по центру */
 .cybershield-icon {
     font-size: 65px;
     color: var(--matrix-green);
@@ -203,7 +224,6 @@ body::after {
     animation: pulseCore 3s ease-in-out infinite;
 }
 
-/* Метка статуса справа от ядра */
 .core-telemetry {
     position: absolute;
     right: -80px;
@@ -217,8 +237,8 @@ body::after {
 
 /* Заголовки */
 .hero h1, .page-title {
-    font-family: 'OpenLukyanov', sans-serif; /* Включение OpenLukyanov */
-    font-size: 48px; /* Чуть уменьшил базовый кегль, так как OpenLukyanov довольно размашистый */
+    font-family: 'OpenLukyanov', sans-serif;
+    font-size: 48px;
     letter-spacing: 2px;
     text-transform: uppercase;
     font-weight: normal;
@@ -246,7 +266,7 @@ body::after {
     margin: 0 auto 45px auto;
 }
 
-/* 4. РЕВОЛЮЦИОННЫЕ КНОПКИ-ГЕКСАГОНЫ С ТОЧНОЙ СТРУКТУРОЙ */
+/* 4. РЕВОЛЮЦИОННЫЕ КНОПКИ-ГЕКСАГОНЫ */
 .btn-container {
     display: flex;
     gap: 20px;
@@ -272,11 +292,9 @@ body::after {
     overflow: hidden;
     z-index: 1;
     transition: all 0.3s ease;
-    /* Обрезка углов для создания формы хакерского гексагона */
     clip-path: polygon(12px 0%, calc(100% - 12px) 0%, 100% 50%, calc(100% - 12px) 100%, 12px 100%, 0% 50%);
 }
 
-/* Границы гексагональной кнопки через маску */
 .btn::before {
     content: "";
     position: absolute;
@@ -287,7 +305,6 @@ body::after {
     z-index: -2;
 }
 
-/* Внутреннее тело кнопки (создает эффект тонкой рамки) */
 .btn::after {
     content: "";
     position: absolute;
@@ -298,18 +315,16 @@ body::after {
     z-index: -1;
 }
 
-/* Лазерная заливка при наведении */
 .btn-fill {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(90deg, rgba(0,255,102,0.2) 0%, rgba(0,255,102,0.05) 100%);
+    background: linear-gradient(90deg, rgba(0,255,102,0.15) 0%, rgba(0,255,102,0.02) 100%);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     z-index: -1;
 }
 
-/* Подписи под главным текстом кнопки (// TOOLS, // COMMS) */
 .btn-sub {
     font-family: 'Share Tech Mono', monospace;
     font-size: 9px;
@@ -319,7 +334,6 @@ body::after {
     color: var(--text-bright);
 }
 
-/* Хакерские стили при наведении на гексагон */
 .btn:hover {
     color: #fff !important;
     filter: drop-shadow(0 0 12px var(--matrix-green));
@@ -330,7 +344,7 @@ body::after {
 }
 
 .btn:hover::before {
-    background: #fff; /* Белое свечение граней при наведении */
+    background: #fff;
 }
 
 /* 5. МОДУЛЬНАЯ СЕТКА КАРТОЧЕК ДЛЯ СТРАНИЦ АРСЕНАЛА */
@@ -368,8 +382,8 @@ body::after {
 }
 
 .card:hover {
-    border-color: rgba(0, 255, 102, 0.4);
-    box-shadow: 0 0 20px rgba(0, 255, 102, 0.05);
+    border-color: rgba(0, 255, 102, 0.3);
+    box-shadow: 0 0 20px rgba(0, 255, 102, 0.03);
     transform: translateY(-2px);
 }
 
@@ -400,26 +414,25 @@ body::after {
     margin-bottom: 20px;
 }
 
-/* Статусы */
 .status {
     font-size: 11px;
     color: var(--matrix-green);
     letter-spacing: 2px;
-    border: 1px solid rgba(0, 255, 102, 0.3);
+    border: 1px solid rgba(0, 255, 102, 0.2);
     padding: 4px 10px;
-    background: rgba(0, 255, 102, 0.05);
+    background: rgba(0, 255, 102, 0.03);
 }
 
 .status-alert {
     font-size: 11px;
     color: #ff3333;
     letter-spacing: 2px;
-    border: 1px solid rgba(255, 51, 51, 0.3);
+    border: 1px solid rgba(255, 51, 51, 0.2);
     padding: 4px 10px;
-    background: rgba(255, 51, 51, 0.05);
+    background: rgba(255, 51, 51, 0.03);
 }
 
-/* 6. НИЖНЯЯ СТРОКА ТЕЛЕМЕТРИИ С КАРТИНКИ */
+/* 6. НИЖНЯЯ СТРОКА ТЕЛЕМЕТРИИ */
 .hud-footer {
     display: flex;
     justify-content: space-between;
@@ -429,7 +442,7 @@ body::after {
     font-size: 11px;
     letter-spacing: 2px;
     color: var(--text-dim);
-    background: linear-gradient(0deg, rgba(0, 255, 102, 0.02) 0%, transparent 100%);
+    background: linear-gradient(0deg, rgba(0, 255, 102, 0.01) 0%, transparent 100%);
     position: relative;
     z-index: 10;
     margin-top: auto;
@@ -453,8 +466,8 @@ body::after {
     to { transform: rotate(-360deg); }
 }
 @keyframes pulseCore {
-    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(0, 255, 102, 0.5)); }
-    50% { transform: scale(1.05); filter: drop-shadow(0 0 35px rgba(0, 255, 102, 0.8)); }
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(0, 255, 102, 0.4)); }
+    50% { transform: scale(1.03); filter: drop-shadow(0 0 35px rgba(0, 255, 102, 0.7)); }
 }
 
 /* Адаптив под мобильные устройства */
@@ -466,4 +479,5 @@ body::after {
     .hud-footer { flex-direction: column; gap: 10px; text-align: center; padding: 20px; }
     .core-telemetry { display: none; }
     .container { padding: 0 20px 40px 20px; }
+    body::after { width: 45vh; height: 45vh; left: 50%; top: 45%; }
 }
