@@ -2,6 +2,14 @@
    УЛЬТИМАТИВНЫЙ SCI-FI HUD ИНТЕРФЕЙС "HACKPACK" (ТОЧНО ПО МАКЕТУ)
    ========================================================================== */
 
+/* Подключение кастомного футуристичного шрифта */
+@font-face {
+    font-family: 'Bauhaus 93 Remastered';
+    src: url('./bauhaus93.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 :root {
     --bg-dark: #020604;
     --matrix-green: #00ff66;
@@ -83,8 +91,9 @@ body::after {
     display: flex;
     align-items: center;
     gap: 12px;
-    font-size: 24px;
-    letter-spacing: 4px;
+    font-family: 'Bauhaus 93 Remastered', sans-serif; /* Применение Bauhaus 93 Remastered */
+    font-size: 28px;
+    letter-spacing: 2px;
     color: #fff;
     font-weight: normal;
 }
@@ -98,7 +107,8 @@ body::after {
 .logo::after {
     content: "// SECURE ACCESS HUB";
     position: absolute;
-    left: 215px;
+    left: 245px; /* Сдвинуто под обновленный размер шрифта логотипа */
+    font-family: 'Share Tech Mono', monospace;
     font-size: 11px;
     color: var(--text-dim);
     letter-spacing: 2px;
@@ -212,8 +222,9 @@ body::after {
 
 /* Заголовки */
 .hero h1, .page-title {
-    font-size: 44px;
-    letter-spacing: 5px;
+    font-family: 'Bauhaus 93 Remastered', sans-serif; /* Применение Bauhaus 93 Remastered */
+    font-size: 52px;
+    letter-spacing: 2px;
     text-transform: uppercase;
     font-weight: normal;
     margin-bottom: 20px;
@@ -305,6 +316,7 @@ body::after {
 
 /* Подписи под главным текстом кнопки (// TOOLS, // COMMS) */
 .btn-sub {
+    font-family: 'Share Tech Mono', monospace;
     font-size: 9px;
     opacity: 0.5;
     letter-spacing: 1px;
