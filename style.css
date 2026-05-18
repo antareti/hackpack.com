@@ -2,13 +2,8 @@
    УЛЬТИМАТИВНЫЙ SCI-FI HUD ИНТЕРФЕЙС "HACKPACK" (ТОЧНО ПО МАКЕТУ)
    ========================================================================== */
 
-/* Подключение кастомного футуристичного шрифта */
-@font-face {
-    font-family: 'Bauhaus 93 Remastered';
-    src: url('./bauhaus93.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
+/* Импорт шрифта Bauhaus 93 напрямую из веб-репозитория */
+@import url('https://fonts.cdnfonts.com/css/bauhaus-93');
 
 :root {
     --bg-dark: #020604;
@@ -90,10 +85,10 @@ body::after {
 .logo {
     display: flex;
     align-items: center;
-    gap: 12px;
-    font-family: 'Bauhaus 93 Remastered', sans-serif; /* Применение Bauhaus 93 Remastered */
-    font-size: 28px;
-    letter-spacing: 2px;
+    gap: 10px;
+    font-family: 'Bauhaus 93', sans-serif; /* Имя шрифта из CDN */
+    font-size: 26px;
+    letter-spacing: 0.5px;
     color: #fff;
     font-weight: normal;
 }
@@ -107,7 +102,7 @@ body::after {
 .logo::after {
     content: "// SECURE ACCESS HUB";
     position: absolute;
-    left: 245px; /* Сдвинуто под обновленный размер шрифта логотипа */
+    left: 235px;
     font-family: 'Share Tech Mono', monospace;
     font-size: 11px;
     color: var(--text-dim);
@@ -222,9 +217,9 @@ body::after {
 
 /* Заголовки */
 .hero h1, .page-title {
-    font-family: 'Bauhaus 93 Remastered', sans-serif; /* Применение Bauhaus 93 Remastered */
+    font-family: 'Bauhaus 93', sans-serif; /* Имя шрифта из CDN */
     font-size: 52px;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     text-transform: uppercase;
     font-weight: normal;
     margin-bottom: 20px;
