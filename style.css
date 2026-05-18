@@ -1,19 +1,18 @@
 /* ==========================================================================
-   УЛЬТИМАТИВНЫЙ SCI-FI HUD ИНТЕРФЕЙС "HACKPACK" (UNDERWATER MATRIX EDITION)
+   УЛЬТИМАТИВНЫЙ SCI-FI HUD ИНТЕРФЕЙС "HACKPACK" (ФОН: ie.png)
    ========================================================================== */
 
 /* Импорт хакерского шрифта OpenLukyanov напрямую из веб-репозитория */
 @import url('https://fonts.cdnfonts.com/css/openlukyanov');
 
 :root {
-    --bg-dark: #010804;          /* Ультра-глубокая подводная бездна */
-    --swamp-green: #041a0d;      /* Густая болотная вода */
-    --matrix-green: #00ff66;     /* Люминесцентный неоновый зеленый */
+    --bg-dark: #020604;          /* Глубокий болотно-черный тон */
+    --matrix-green: #00ff66;     /* Акцентный неоновый зеленый */
     --neon-glow: rgba(0, 255, 102, 0.35);
     --hud-border: rgba(0, 255, 102, 0.15);
-    --hud-bg-trans: rgba(1, 8, 4, 0.85);
+    --hud-bg-trans: rgba(2, 6, 4, 0.82);
     --text-bright: #e6fff0;
-    --text-dim: #385c43;         /* Приглушенный тиной зеленый */
+    --text-dim: #4a7356;         /* Болотно-зеленый приглушенный текст */
 }
 
 /* Обнуление и подготовка среды */
@@ -35,76 +34,59 @@ body {
     flex-direction: column;
 }
 
-/* 1. ПОДВОДНАЯ БЕЗДНА, СВЕТОВЫЕ ТОНИ И ИСКАЖЕНИЯ ТОЛЩИ ВОДЫ */
+/* 1. ВАШ ФОН ИЗ КОРНЯ САЙТА С ПОЛУПРОЗРАЧНЫМ КИБЕР-НАЛОЖЕНИЕМ */
 body::before {
     content: "";
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    /* Каустика света сверху + градиент глубины + гексагональная сетка */
+    /* Загрузка картинки ie.png + мягкое затемнение, чтобы текст читался идеально */
     background: 
-        radial-gradient(ellipse at 50% -20%, rgba(0, 255, 102, 0.25) 0%, transparent 60%),
-        radial-gradient(circle at 50% 50%, var(--swamp-green) 0%, var(--bg-dark) 90%),
-        linear-gradient(30deg, var(--bg-dark) 25%, transparent 25%), 
-        linear-gradient(30deg, transparent 75%, var(--bg-dark) 75%), 
-        linear-gradient(150deg, var(--bg-dark) 25%, transparent 25%), 
-        linear-gradient(150deg, transparent 75%, var(--bg-dark) 75%), 
-        linear-gradient(60deg, rgba(0, 255, 102, 0.01) 25%, transparent 25%), 
-        linear-gradient(60deg, transparent 75%, rgba(0, 255, 102, 0.01) 75%), 
-        linear-gradient(120deg, rgba(0, 255, 102, 0.01) 25%, transparent 25%), 
-        linear-gradient(120deg, transparent 75%, rgba(0, 255, 102, 0.01) 75%);
-    background-size: 100% 100%, 100% 100%, 60px 104px, 60px 104px, 60px 104px, 60px 104px, 60px 104px, 60px 104px, 60px 104px, 60px 104px;
-    background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 30px 52px, 30px 52px, 30px 52px, 30px 52px, 0 0;
-    background-blend-mode: screen, multiply, normal;
+        radial-gradient(circle at 50% 50%, rgba(2, 6, 4, 0.4) 0%, rgba(2, 6, 4, 0.85) 100%),
+        url('ie.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     z-index: -3;
-    /* Плавное покачивание всей толщи воды */
-    animation: waterSway 8s ease-in-out infinite alternate;
 }
 
-/* 2. АНИМИРОВАННЫЕ КРУГИ СКАНИРОВАНИЯ И ГИДРОЛОКАТОР */
+/* 2. ТАКТИЧЕСКИЙ HUD-ИНТЕРФЕЙС И ЦИФРОВЫЕ КРУГИ СКАНИРОВАНИЯ */
 body::after {
     content: "";
     position: fixed;
     top: 50%;
-    left: 65%;
+    left: 65%; /* Точное позиционирование в правой части, как на макете */
     transform: translate(-50%, -50%);
-    width: 80vh;
-    height: 80vh;
+    width: 75vh;
+    height: 75vh;
+    /* Создание концентрических кибер-колец биометрии */
     background: 
-        radial-gradient(circle, transparent 30%, rgba(0, 255, 102, 0.12) 31%, rgba(0, 255, 102, 0.12) 33%, transparent 34%),
-        radial-gradient(circle, transparent 50%, rgba(0, 255, 102, 0.06) 51%, rgba(0, 255, 102, 0.06) 52%, transparent 53%),
-        radial-gradient(circle, rgba(0, 255, 102, 0.02) 0%, transparent 70%);
+        radial-gradient(circle, transparent 35%, rgba(0, 255, 102, 0.15) 36%, rgba(0, 255, 102, 0.15) 37%, transparent 38%),
+        radial-gradient(circle, transparent 50%, rgba(0, 255, 102, 0.08) 51%, rgba(0, 255, 102, 0.08) 52%, transparent 53%),
+        radial-gradient(circle, transparent 65%, rgba(0, 255, 102, 0.04) 66%, rgba(0, 255, 102, 0.04) 67%, transparent 68%),
+        radial-gradient(circle, rgba(0, 255, 102, 0.03) 0%, transparent 70%);
     pointer-events: none;
     z-index: -2;
-    animation: sonarPulse 6s ease-in-out infinite;
 }
 
-/* Эффект плавающих пузырей воздуха и ряби */
+/* Слой тактических линий монитора (CRT-эффект) */
 .hero::before {
     content: "";
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    /* Генерация мелких пузырьков воздуха через линейные слои */
-    background-image: 
-        radial-gradient(circle at 20% 80%, rgba(0, 255, 102, 0.3) 1px, transparent 3px),
-        radial-gradient(circle at 75% 60%, rgba(0, 255, 102, 0.2) 2px, transparent 4px),
-        radial-gradient(circle at 45% 90%, rgba(0, 255, 102, 0.4) 1.5px, transparent 3.5px),
-        radial-gradient(circle at 85% 20%, rgba(0, 255, 102, 0.15) 3px, transparent 6px),
-        linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 255, 102, 0.02) 50%);
-    background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 4px;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 255, 102, 0.03) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.015), rgba(0, 255, 0, 0.005), rgba(0, 0, 255, 0.015));
+    background-size: 100% 4px, 6px 100%;
     z-index: -1;
     pointer-events: none;
-    animation: bubblesUp 12s linear infinite;
 }
 
-/* 3. ТАКТИЧЕСКАЯ НАВИГАЦИОННАЯ ПАНЕЛЬ (ПОДВОДНЫЙ HUD) */
+/* 3. ТАКТИЧЕСКАЯ НАВИГАЦИОННАЯ ПАНЕЛЬ */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 25px 50px;
-    background: linear-gradient(180deg, rgba(0, 255, 102, 0.04) 0%, transparent 100%);
+    background: linear-gradient(180deg, rgba(0, 255, 102, 0.03) 0%, transparent 100%);
     border-bottom: 1px solid var(--hud-border);
-    backdrop-filter: blur(4px);
     position: relative;
     z-index: 10;
 }
@@ -126,7 +108,7 @@ body::after {
 }
 
 .logo::after {
-    content: "// DEEP WATER ACCESS PROTOCOL";
+    content: "// SECURE ACCESS HUB";
     position: absolute;
     left: 235px;
     font-family: 'Share Tech Mono', monospace;
@@ -141,6 +123,7 @@ body::after {
     filter: drop-shadow(0 0 5px var(--matrix-green));
 }
 
+/* Ссылки меню */
 .nav-links {
     display: flex;
     list-style: none;
@@ -165,7 +148,7 @@ body::after {
 .nav-links a:hover, .nav-links a.active {
     opacity: 1;
     color: var(--matrix-green);
-    background: rgba(0, 255, 102, 0.03);
+    background: rgba(0, 255, 102, 0.02);
     border-bottom: 2px solid var(--matrix-green);
     text-shadow: 0 0 8px var(--neon-glow);
 }
@@ -185,11 +168,9 @@ body::after {
     max-width: 950px;
     position: relative;
     z-index: 5;
-    /* Легкое искажение текста волной */
-    animation: textFloat 4s ease-in-out infinite alternate;
 }
 
-/* КИБЕРНЕТИЧЕСКОЕ ЯДРО (АКВА-ГЕКСАГОН) */
+/* КИБЕРНЕТИЧЕСКОЕ ЯДРО С ОБЪЕМНЫМ ЩИТОМ И КОНТУРОМ ГЕКСАГОНА */
 .cybershield-container {
     position: relative;
     width: 240px;
@@ -205,9 +186,9 @@ body::after {
     position: absolute;
     width: 100%;
     height: 100%;
-    border: 1px dashed rgba(0, 255, 102, 0.25);
-    border-radius: 38% 62% 65% 35% / 45% 48% 62% 52%;
-    animation: rotateCore 25s linear infinite;
+    border: 1px dashed rgba(0, 255, 102, 0.2);
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    animation: rotateCore 20s linear infinite;
 }
 
 .cybershield-container::after {
@@ -215,17 +196,17 @@ body::after {
     position: absolute;
     width: 85%;
     height: 85%;
-    border: 1px double rgba(0, 255, 102, 0.12);
+    border: 1px double rgba(0, 255, 102, 0.1);
     border-radius: 50%;
-    animation: rotateCoreRev 18s linear infinite;
+    animation: rotateCoreRev 15s linear infinite;
 }
 
 .cybershield-icon {
     font-size: 65px;
     color: var(--matrix-green);
     z-index: 2;
-    filter: drop-shadow(0 0 25px rgba(0, 255, 102, 0.5));
-    animation: pulseCore 4s ease-in-out infinite;
+    filter: drop-shadow(0 0 25px rgba(0, 255, 102, 0.6));
+    animation: pulseCore 3s ease-in-out infinite;
 }
 
 .core-telemetry {
@@ -248,11 +229,11 @@ body::after {
     font-weight: normal;
     margin-bottom: 20px;
     color: #fff;
+    text-align: center;
 }
 
 .page-title {
     margin: 40px 0;
-    text-align: center;
 }
 
 .neon-text {
@@ -351,7 +332,7 @@ body::after {
     background: #fff;
 }
 
-/* 6. МОДУЛЬНАЯ СЕТКА КАРТОЧЕК */
+/* 6. МОДУЛЬНАЯ СЕТКА КАРТОЧЕК ДЛЯ СТРАНИЦ АРСЕНАЛА */
 .container {
     flex: 1;
     width: 100%;
@@ -374,7 +355,6 @@ body::after {
     flex-direction: column;
     justify-content: space-between;
     position: relative;
-    backdrop-filter: blur(6px);
     transition: all 0.3s ease;
 }
 
@@ -388,7 +368,7 @@ body::after {
 
 .card:hover {
     border-color: rgba(0, 255, 102, 0.3);
-    box-shadow: 0 0 20px rgba(0, 255, 102, 0.05);
+    box-shadow: 0 0 20px rgba(0, 255, 102, 0.03);
     transform: translateY(-2px);
 }
 
@@ -437,7 +417,7 @@ body::after {
     background: rgba(255, 51, 51, 0.03);
 }
 
-/* 7. СТРОКА ТЕЛЕМЕТРИИ С ГЛУБИНОЙ ПОДПИСИ */
+/* 7. НИЖНЯЯ СТРОКА ТЕЛЕМЕТРИИ */
 .hud-footer {
     display: flex;
     justify-content: space-between;
@@ -448,7 +428,6 @@ body::after {
     letter-spacing: 2px;
     color: var(--text-dim);
     background: linear-gradient(0deg, rgba(0, 255, 102, 0.01) 0%, transparent 100%);
-    backdrop-filter: blur(4px);
     position: relative;
     z-index: 10;
     margin-top: auto;
@@ -462,34 +441,7 @@ body::after {
     text-transform: uppercase;
 }
 
-/* ==========================================================================
-   ПОДВОДНАЯ АНИМАЦИЯ И ГИДРО-ЭФФЕКТЫ
-   ========================================================================== */
-
-/* Искажение и движение толщи воды */
-@keyframes waterSway {
-    0% { transform: scale(1) skewX(0deg); filter: hue-rotate(0deg); }
-    100% { transform: scale(1.02) skewX(1deg); filter: hue-rotate(5deg); }
-}
-
-/* Движение пузырьков воздуха вверх */
-@keyframes bubblesUp {
-    0% { background-position: 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px; }
-    100% { background-position: 20px -300px, -40px -400px, 30px -250px, -10px -500px, 0px 0px; }
-}
-
-/* Плавное всплывание/покачивание контента */
-@keyframes textFloat {
-    0% { transform: translateY(0px) rotate(0deg); }
-    100% { transform: translateY(-6px) rotate(0.5deg); }
-}
-
-/* Гидролокаторный импульс кругов */
-@keyframes sonarPulse {
-    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
-    50% { transform: translate(-50%, -50%) scale(1.05); opacity: 0.9; filter: drop-shadow(0 0 15px rgba(0,255,102,0.1)); }
-}
-
+/* АНИМАЦИОННЫЕ ТАКТИЧЕСКИЕ СЕКЦИИ */
 @keyframes rotateCore {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
@@ -499,8 +451,8 @@ body::after {
     to { transform: rotate(-360deg); }
 }
 @keyframes pulseCore {
-    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(0, 255, 102, 0.3)); }
-    50% { transform: scale(1.04) rotate(2deg); filter: drop-shadow(0 0 35px rgba(0, 255, 102, 0.6)); }
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(0, 255, 102, 0.4)); }
+    50% { transform: scale(1.03); filter: drop-shadow(0 0 35px rgba(0, 255, 102, 0.7)); }
 }
 
 /* Адаптив под мобильные устройства */
