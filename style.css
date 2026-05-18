@@ -6,14 +6,14 @@
 @import url('https://fonts.cdnfonts.com/css/openlukyanov');
 
 :root {
-    --bg-dark: #050a06;          /* Глубокий болотно-черный тон */
-    --swamp-green: #0e1f13;      /* Плотный болотный цвет для подложки */
+    --bg-dark: #020604;          /* Глубокий болотно-черный тон */
+    --swamp-green: #08120a;      /* Плотный болотный цвет для подложки */
     --matrix-green: #00ff66;     /* Акцентный неоновый зеленый */
     --neon-glow: rgba(0, 255, 102, 0.35);
     --hud-border: rgba(0, 255, 102, 0.15);
-    --hud-bg-trans: rgba(5, 10, 6, 0.82);
+    --hud-bg-trans: rgba(2, 6, 4, 0.82);
     --text-bright: #e6fff0;
-    --text-dim: #507e5d;         /* Болотно-зеленый приглушенный текст */
+    --text-dim: #4a7356;         /* Болотно-зеленый приглушенный текст */
 }
 
 /* Обнуление и подготовка среды */
@@ -61,40 +61,39 @@ body::before {
     z-index: -3;
 }
 
-/* 2. ВСТРОЕННОЕ ТАКТИЧЕСКОЕ ЛИЦО (КИБЕР-ГОЛОГРАММА) */
+/* 2. ОРИГИНАЛЬНОЕ КИБЕР-ЛИЦО С МАКЕТА */
 body::after {
     content: "";
     position: fixed;
-    top: 55%;
-    left: 62%;
+    top: 50%;
+    left: 65%; /* Смещено вправо, точно как на макете */
     transform: translate(-50%, -50%);
-    width: 65vh;
-    height: 65vh;
-    /* Высокотехнологичная маска лица женщины, интегрированная прямо в CSS */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500' opacity='0.12'%3E%3Cpath d='M250,60 C180,60 140,110 130,190 C125,230 135,260 140,290 C150,340 180,410 220,435 C235,445 245,450 250,450 C255,450 265,445 280,435 C320,410 350,340 360,290 C365,260 375,230 370,190 C360,110 320,60 250,60 Z' fill='none' stroke='%2300ff66' stroke-width='1.5'/%3E%3Cpath d='M175,220 Q210,205 230,225 M325,220 Q290,205 270,225' fill='none' stroke='%2300ff66' stroke-width='2'/%3E%3Ccircle cx='205' cy='230' r='8' fill='none' stroke='%2300ff66' stroke-width='1.5'/%3E%3Ccircle cx='295' cy='230' r='8' fill='none' stroke='%2300ff66' stroke-width='1.5'/%3E%3Cpath d='M250,225 L245,290 L255,290 Z' fill='none' stroke='%2300ff66' stroke-width='1.5'/%3E%3Cpath d='M215,330 Q250,350 285,330' fill='none' stroke='%2300ff66' stroke-width='2'/%3E%3Cpath d='M225,333 Q250,343 275,333' fill='none' stroke='%2300ff66' stroke-width='1'/%3E%3Cpath d='M140,190 L360,190 M150,290 L350,290 M180,370 L320,370 M250,60 L250,450' fill='none' stroke='%2300ff66' stroke-width='0.5' stroke-dasharray='4 8'/%3E%3C/svg%3E");
+    width: 85vh;
+    height: 85vh;
+    /* Ссылка на качественную болотную кибер-текстуру лица с макета */
+    background-image: url('https://i.postimg.cc/tJnbyzqy/hud-face-bg.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    /* Размытие краев и наложение эффекта горизонтальных линий сканирования */
-    background-blend-mode: overlay;
-    mask-image: radial-gradient(circle, black 50%, transparent 95%);
-    -webkit-mask-image: radial-gradient(circle, black 50%, transparent 95%);
-    z-index: -2;
+    /* Идеальное растворение краев, чтобы лицо уходило в тень и не мешало кнопкам */
+    opacity: 0.18;
+    mix-blend-mode: screen;
     pointer-events: none;
+    z-index: -2;
 }
 
-/* Дополнительный слой сетки поверх лица для эффекта монитора */
+/* Дополнительный слой тактических линий монитора поверх интерфейса */
 .hero::before {
     content: "";
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 255, 102, 0.04) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 255, 102, 0.03) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.015), rgba(0, 255, 0, 0.005), rgba(0, 0, 255, 0.015));
     background-size: 100% 4px, 6px 100%;
     z-index: -1;
     pointer-events: none;
 }
 
-/* 2. ТАКТИЧЕСКАЯ НАВИГАЦИОННАЯ ПАНЕЛЬ */
+/* 3. ТАКТИЧЕСКАЯ НАВИГАЦИОННАЯ ПАНЕЛЬ */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -168,7 +167,7 @@ body::after {
     text-shadow: 0 0 8px var(--neon-glow);
 }
 
-/* 3. ЦЕНТРАЛЬНЫЙ ИНТЕРФЕЙС HUD */
+/* 4. ЦЕНТРАЛЬНЫЙ ИНТЕРФЕЙС HUD */
 .hero {
     flex: 1;
     display: flex;
@@ -266,7 +265,7 @@ body::after {
     margin: 0 auto 45px auto;
 }
 
-/* 4. РЕВОЛЮЦИОННЫЕ КНОПКИ-ГЕКСАГОНЫ */
+/* 5. РЕВОЛЮЦИОННЫЕ КНОПКИ-ГЕКСАГОНЫ */
 .btn-container {
     display: flex;
     gap: 20px;
@@ -347,7 +346,7 @@ body::after {
     background: #fff;
 }
 
-/* 5. МОДУЛЬНАЯ СЕТКА КАРТОЧЕК ДЛЯ СТРАНИЦ АРСЕНАЛА */
+/* 6. МОДУЛЬНАЯ СЕТКА КАРТОЧЕК ДЛЯ СТРАНИЦ АРСЕНАЛА */
 .container {
     flex: 1;
     width: 100%;
@@ -432,7 +431,7 @@ body::after {
     background: rgba(255, 51, 51, 0.03);
 }
 
-/* 6. НИЖНЯЯ СТРОКА ТЕЛЕМЕТРИИ */
+/* 7. НИЖНЯЯ СТРОКА ТЕЛЕМЕТРИИ */
 .hud-footer {
     display: flex;
     justify-content: space-between;
@@ -479,5 +478,5 @@ body::after {
     .hud-footer { flex-direction: column; gap: 10px; text-align: center; padding: 20px; }
     .core-telemetry { display: none; }
     .container { padding: 0 20px 40px 20px; }
-    body::after { width: 45vh; height: 45vh; left: 50%; top: 45%; }
+    body::after { width: 50vh; height: 50vh; left: 50%; top: 50%; opacity: 0.12; }
 }
