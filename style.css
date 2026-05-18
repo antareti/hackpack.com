@@ -2,8 +2,8 @@
    УЛЬТИМАТИВНЫЙ SCI-FI HUD ИНТЕРФЕЙС "HACKPACK" (ТОЧНО ПО МАКЕТУ)
    ========================================================================== */
 
-/* Импорт шрифта Bauhaus 93 напрямую из веб-репозитория */
-@import url('https://fonts.cdnfonts.com/css/bauhaus-93');
+/* Импорт хакерского шрифта OpenLukyanov напрямую из веб-репозитория */
+@import url('https://fonts.cdnfonts.com/css/openlukyanov');
 
 :root {
     --bg-dark: #020604;
@@ -86,9 +86,9 @@ body::after {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-family: 'Bauhaus 93', sans-serif; /* Имя шрифта из CDN */
+    font-family: 'OpenLukyanov', sans-serif; /* Включение OpenLukyanov */
     font-size: 26px;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
     color: #fff;
     font-weight: normal;
 }
@@ -217,9 +217,9 @@ body::after {
 
 /* Заголовки */
 .hero h1, .page-title {
-    font-family: 'Bauhaus 93', sans-serif; /* Имя шрифта из CDN */
-    font-size: 52px;
-    letter-spacing: 1px;
+    font-family: 'OpenLukyanov', sans-serif; /* Включение OpenLukyanov */
+    font-size: 48px; /* Чуть уменьшил базовый кегль, так как OpenLukyanov довольно размашистый */
+    letter-spacing: 2px;
     text-transform: uppercase;
     font-weight: normal;
     margin-bottom: 20px;
